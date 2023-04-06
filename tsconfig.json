@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "module": "ESNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES5"
+  }
+}
