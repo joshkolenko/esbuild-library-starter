@@ -44,7 +44,6 @@ export default [
     plugins: [
       typescript({ target: 'es2015' }),
       babel({ babelHelpers: 'bundled' }),
-      writePackageJSONs(),
     ],
   },
   {
@@ -70,6 +69,6 @@ export default [
       { file: 'dist/cjs/index.d.ts', format: 'cjs' },
       { file: 'dist/browser/index.d.ts', format: 'umd' },
     ],
-    plugins: [dts()],
+    plugins: [dts(), writePackageJSONs()],
   },
 ];
