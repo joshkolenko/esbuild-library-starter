@@ -3,3 +3,8 @@ tsconfig*
 *.tgz
 .github
 test
+dist/browser
+example
+sfmc
+rollup.config.js
+tsconfig.json

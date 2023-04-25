@@ -1,23 +1,31 @@
 {
-  "name": "esbuild-library-starter",
-  "version": "0.0.0",
+  "name": "form-handler",
+  "version": "1.0.0",
   "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "pack": "npm run build && npm pack"
   },
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
-  "exports": {
-    "require": "./dist/cjs/index.js",
-    "import": "./dist/esm/index.js"
+  "dependencies": {
+    "babel-plugin-add-module-exports": "^1.0.4",
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@microsoft/api-extractor": "^7.34.4",
+    "@microsoft/tsdoc": "^0.14.2",
     "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-node-resolve": "^15.0.2",
+    "@rollup/plugin-terser": "^0.4.1",
     "@rollup/plugin-typescript": "^11.1.0",
+    "@types/grecaptcha": "^3.0.4",
     "@types/node": "^18.15.11",
+    "@types/validator": "^13.7.10",
     "rollup": "^3.20.2",
-    "rollup-plugin-dts": "^5.3.0"
+    "rollup-plugin-cleanup": "^3.2.1",
+    "rollup-plugin-dts": "^5.3.0",
+    "rollup-plugin-prettier": "^3.0.0"
   }
 }

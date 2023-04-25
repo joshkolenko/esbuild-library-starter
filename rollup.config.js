@@ -1,74 +1,55 @@
 import typescript from '@rollup/plugin-typescript';
 import babel from '@rollup/plugin-babel';
+import terser from '@rollup/plugin-terser';
+import cleanup from 'rollup-plugin-cleanup';
 import dts from 'rollup-plugin-dts';
-import fs from 'fs';
 
-function writePackageJSONs() {
-  return {
-    name: 'example-plugin',
-    buildEnd: {
-      order: 'post',
-      handler(res) {
-        fs.writeFileSync(
-          'dist/esm/package.json',
-          JSON.stringify({ type: 'module' })
-        );
-
-        fs.writeFileSync(
-          'dist/cjs/package.json',
-          JSON.stringify({ type: 'commonjs' })
-        );
-      },
-    },
-  };
-}
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 export default [
   {
     input: 'src/index.ts',
-    output: [
-      {
-        format: 'es',
-        file: 'dist/esm/index.js',
-      },
-      {
-        format: 'cjs',
-        file: 'dist/cjs/index.js',
-      },
-      {
-        name: 'MyLibrary',
-        format: 'umd',
-        file: 'dist/browser/index.js',
-      },
-    ],
+    output: {
+      format: 'esm',
+      dir: 'dist/',
+    },
+
     plugins: [
-      typescript({ target: 'es2015' }),
+      nodeResolve(),
       babel({ babelHelpers: 'bundled' }),
+      typescript({ esModuleInterop: true, module: 'ESNext' }),
+      cleanup({ comments: 'jsdoc' }),
     ],
+  },
+  {
+    input: 'src/index.ts',
+    output: {
+      format: 'esm',
+      dir: 'dist/',
+    },
+    plugins: [dts()],
   },
   {
     input: 'src/index.ts',
     output: [
       {
-        format: 'es',
-        file: 'index.d.ts',
+        name: 'createForm',
+        format: 'umd',
+        file: 'dist/browser/index.js',
+        sourcemap: true,
+      },
+      {
+        name: 'createForm',
+        format: 'umd',
+        file: 'dist/browser/index.min.js',
+        plugins: [terser()],
       },
     ],
     plugins: [
-      typescript({
-        declaration: true,
-        emitDeclarationOnly: true,
-        declarationDir: 'dist/types',
-      }),
+      nodeResolve(),
+      babel({ babelHelpers: 'bundled' }),
+      typescript(),
+      cleanup({ comments: 'jsdoc' }),
     ],
-  },
-  {
-    input: 'dist/types/index.d.ts',
-    output: [
-      { file: 'dist/esm/index.d.ts', format: 'es' },
-      { file: 'dist/cjs/index.d.ts', format: 'cjs' },
-      { file: 'dist/browser/index.d.ts', format: 'umd' },
-    ],
-    plugins: [dts(), writePackageJSONs()],
   },
 ];
