@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Example Form</title>
+  </head>
+  <body>
+    <div id="form" role="form" data-name="Test Form">
+      <input type="text" data-field="FirstName" placeholder="First Name" aria-label="First Name" autocomplete="given-name" required />
+      <input type="text" data-field="LastName" placeholder="Last Name" aria-label="Last Name" autocomplete="family-name" required />
+      <input type="email" data-field="EmailAddress" placeholder="Email Address" aria-label="Email Address" autocomplete="email" required />
+      <input type="tel" data-field="Phone" placeholder="Phone Number" aria-label="Phone Number" autocomplete="tel" required />
+      <div data-field="Option">
+        <label><input name="radio" type="radio" value="radio-1" required /> Option 1</label>
+        <label><input name="radio" type="radio" value="radio-2" /> Option 2</label>
+        <label><input name="radio" type="radio" value="radio-3" /> Option 3</label>
+      </div>
+      <label>
+        <input data-field="MarketingOptIn" type="checkbox" value="checkbox-1" required />
+        I agree to marketing communications
+      </label>
+      <button type="submit">Submit</button>
+    </div>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
