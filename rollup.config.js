@@ -1,55 +1,55 @@
 import typescript from '@rollup/plugin-typescript';
-import babel from '@rollup/plugin-babel';
 import terser from '@rollup/plugin-terser';
-import cleanup from 'rollup-plugin-cleanup';
-import dts from 'rollup-plugin-dts';
+import babel from '@rollup/plugin-babel';
+import path from 'path';
 
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 
+const { npm_package_name, npm_package_version } = process.env;
+
+const name = 'saySomething';
+const banner = `/** ${npm_package_name} @version ${npm_package_version} */\n`;
+
+const input = 'src/index.ts';
+
 export default [
   {
-    input: 'src/index.ts',
+    // module
+    input,
     output: {
+      banner,
       format: 'esm',
-      dir: 'dist/',
+      preserveModules: true,
+      dir: path.resolve('dist'),
     },
 
     plugins: [
       nodeResolve(),
-      babel({ babelHelpers: 'bundled' }),
-      typescript({ esModuleInterop: true, module: 'ESNext' }),
-      cleanup({ comments: 'jsdoc' }),
+      typescript({
+        declaration: true,
+        declarationDir: path.resolve('dist'),
+      }),
     ],
   },
   {
-    input: 'src/index.ts',
-    output: {
-      format: 'esm',
-      dir: 'dist/',
-    },
-    plugins: [dts()],
-  },
-  {
-    input: 'src/index.ts',
+    // browser
+    input,
     output: [
       {
-        name: 'createForm',
+        name,
+        banner,
         format: 'umd',
-        file: 'dist/browser/index.js',
+        file: path.resolve('dist', 'browser', 'index.js'),
         sourcemap: true,
       },
       {
-        name: 'createForm',
+        name,
+        banner,
         format: 'umd',
-        file: 'dist/browser/index.min.js',
+        file: path.resolve('dist', 'browser', 'index.min.js'),
         plugins: [terser()],
       },
     ],
-    plugins: [
-      nodeResolve(),
-      babel({ babelHelpers: 'bundled' }),
-      typescript(),
-      cleanup({ comments: 'jsdoc' }),
-    ],
+    plugins: [nodeResolve(), babel({ babelHelpers: 'bundled' }), typescript()],
   },
 ];
