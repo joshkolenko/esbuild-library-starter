@@ -3,8 +3,13 @@ tsconfig*
 *.tgz
 .github
 test
+<<<<<<< HEAD
 dist/browser
 example
 sfmc
 rollup.config.js
 tsconfig.json
+=======
+rollup.config.js
+dist/browser
+>>>>>>> a309fec (chore: update .npmignore)
