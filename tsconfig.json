@@ -2,12 +2,8 @@
   "compilerOptions": {
     "noImplicitAny": true,
     "module": "ESNext",
-    "moduleResolution": "node",
-    "target": "ES2017",
-    "strict": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
-  },
-  "exclude": ["node_modules", "dist"]
-  // "include": ["../src/**/*"]
+    "moduleResolution": "NodeNext",
+    "target": "ES5",
+    "esModuleInterop": true
+  }
 }
