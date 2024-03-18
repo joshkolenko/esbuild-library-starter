@@ -5,3 +5,4 @@ tsconfig*
 test
 rollup.config.js
 dist/browser
+example
