@@ -2,8 +2,11 @@
   "compilerOptions": {
     "noImplicitAny": true,
     "module": "ESNext",
-    "moduleResolution": "NodeNext",
-    "target": "ES5",
-    "esModuleInterop": true
-  }
+    "moduleResolution": "Node",
+    "target": "ES2015",
+    "esModuleInterop": true,
+    "outDir": "dist",
+    "declaration": true
+  },
+  "include": ["src/**/*"]
 }
